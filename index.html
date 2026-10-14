@@ -15,7 +15,7 @@ table{border-collapse:collapse}td,th{padding:8px 18px 8px 0;text-align:left;bord
 <label><span>Observer</span><select id="observer" aria-label="Observer"><option value="following">Following the source</option><option value="fixed">Fixed at initial source</option></select></label>
 <p class="note">Animation audio uses the binaural headphone mix.</p><video id="video" controls playsinline preload="metadata"></video>
 <p><strong>Audio-only comparison</strong> — first identify the dominant scale, strongest direction, and arrival of a second scale, then inspect the animation.</p>
-<label><span>Audio-only delivery</span><select id="delivery" aria-label="Audio-only delivery"><option value="binaural">Binaural · any stereo headphones</option><option value="atmos">Dolby Atmos · compatible device/player</option></select></label><p class="note" id="playback"></p><audio id="audio" controls preload="metadata"></audio><p><a id="audio-download" download>Download selected audio</a> · <a id="video-download" download>Download animation</a></p>
+<p class="note" id="playback"></p><audio id="audio" controls preload="metadata"></audio><p><a id="audio-download" download>Download binaural audio</a> · <a id="video-download" download>Download animation</a></p><p><a id="atmos-download" download>Download this comparison as Dolby Atmos</a></p><p class="note">Atmos downloads are for a compatible native player and headphones. Use Spatial Audio Fixed, with head tracking off. The browser player uses binaural audio. Encoded Atmos cuts retain whole frames, with boundary precision of 32 ms.</p>
 <p class="links"><a href="listening_responses.csv">Listening worksheet</a><a href="settings.json">Mapping settings</a><a href="validation.json">Numerical checks</a></p>
 <p><a href="https://github.com/jimmydx/Sonawg/releases/download/v1.0.0/Sonawg-full-study-atmos.mp4">Download the full Atmos study (29:12, 168 MB)</a> · <a href="https://github.com/jimmydx/Sonawg">Project repository</a></p><hr><h2>Headphone compass check</h2><p>One-second noise bursts in order: N, NE, E, SE, S, SW, W, NW, with one second of silence after each. North stays in front and east stays on the right. Record front/back ambiguities.</p>
 <audio id="compass" controls preload="metadata"></audio>
@@ -25,16 +25,16 @@ table{border-collapse:collapse}td,th{padding:8px 18px 8px 0;text-align:left;bord
 for(const c of study.cases){const option=document.createElement('option');option.value=c.id;option.textContent=c.title;cases.append(option)}
 cases.value='simultaneous';const mapping=document.getElementById('mapping'),observer=document.getElementById('observer');
 document.getElementById('renderer').textContent='North stays in front, east stays to the right. All seven patterns are analytical calibration fields, not solutions of a gravity-wave dynamical model.';
-const delivery=document.getElementById('delivery');
 function update(){
 const r=study.rows.find(r=>r.case===cases.value&&r.mapping===mapping.value&&r.observer===observer.value);
 const v=document.getElementById('video'),a=document.getElementById('audio'),c=document.getElementById('compass');
 v.pause();a.pause();c.pause();v.poster='visuals/'+r.case+'_'+r.observer+'_preview.png';v.src=r.video;
-const spatial=delivery.value==='atmos';a.src=spatial?r.atmos:r.audio;c.src=spatial?'compass-atmos.mp4':'compass.m4a';
+a.src=r.audio;c.src='compass.m4a';
 document.getElementById('audio-download').href=a.getAttribute('src');document.getElementById('video-download').href=r.video;
-document.getElementById('playback').textContent=spatial?'Encoded Dolby Atmos from Logic’s spatial export. Use Spatial Audio Fixed, with head tracking off. Player/headphone support varies; if decoding fails, select Binaural. Atmos cuts retain encoded frames, so boundaries can differ by up to 32 ms.':'Already rendered binaural audio. Turn OFF additional Spatialize Stereo processing and head tracking. Keep playback volume fixed. Ordinary stereo headphones work.';
+document.getElementById('atmos-download').href=r.atmos;
+document.getElementById('playback').textContent='Already rendered binaural audio. Turn OFF additional Spatialize Stereo processing and head tracking. Keep playback volume fixed. Ordinary stereo headphones work.';
 }
-for(const control of [cases,mapping,observer,delivery])control.addEventListener('change',update);
-document.getElementById('audio').addEventListener('error',()=>{document.getElementById('playback').textContent='This player could not load the selected format. Try Binaural, or download the Atmos file to a compatible player.'});
+for(const control of [cases,mapping,observer])control.addEventListener('change',update);
+document.getElementById('audio').addEventListener('error',()=>{document.getElementById('playback').textContent='The audio could not load. Try downloading the binaural sample, or reload after checking your connection.'});
 document.querySelectorAll('audio,video').forEach(el=>el.addEventListener('play',()=>document.querySelectorAll('audio,video').forEach(other=>{if(other!==el)other.pause()})));update();
 </script></html>

@@ -16,8 +16,9 @@ phase and oscillation frequency are not preserved. These patterns do not
 establish gravity-wave identification in real data.
 
 For binaural samples and animation audio, turn off extra Spatialize Stereo
-processing and head tracking. For encoded Dolby Atmos samples, use a compatible
-player/headphones and Spatial Audio Fixed. Actual device decoding and human
+processing and head tracking. The browser uses binaural audio. For downloaded
+Dolby Atmos samples, use a compatible native player/headphones and Spatial
+Audio Fixed. Actual device decoding and human
 front/back localization remain listening checks. The Atmos samples preserve
 encoded frames with boundary precision of 32 ms; binaural comparisons last
 exactly 60 seconds. The full spatial export is also available in the release.
