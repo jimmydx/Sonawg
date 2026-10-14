@@ -1,8 +1,8 @@
 {
   "site": "Sonawg",
-  "comparison_count": 28,
-  "public_files": 108,
-  "total_bytes": 244597070,
+  "comparison_count": 30,
+  "exercise_events": 24,
   "atmos_profile": "Dolby Digital Plus + Dolby Atmos",
+  "browser_audio": "Binaural; Atmos downloads use native players",
   "validation": "Numerical mapping and media passed; human listening pending"
 }

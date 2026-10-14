@@ -34,3 +34,15 @@ with the listener. Mapping settings and numerical validation are included.
 Playback documentation:
 - https://support.apple.com/en-gb/guide/airpods/dev00eb7e0a3/web
 - https://support.apple.com/en-ie/guide/logicpro/lgcpadd22fe4/mac
+
+## All-around exercise
+
+Open https://jimmydx.github.io/Sonawg/?case=surround for an audio-first guessing
+task. Twenty-four packets visit all eight directions, with each direction
+receiving all three wavelength brackets once. Packet centers stay 440 km from
+a fixed observer. Smooth 1.5-second fade-ins and fade-outs overlap neighboring
+events by 2.2 seconds. The three-band and 24-band versions use the same fields
+and the existing fixed gain. Reveal the animation and answer key after listening.
+The worksheet provides cue-center times without revealing directions or scales.
+Numerical tests validate isolated packet sectors and wavelength brackets;
+overlapping packets can legitimately produce multiple audible answers.

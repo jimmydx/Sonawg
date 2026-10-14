@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "event_count": 24,
+  "each_direction_each_bracket_once": true,
+  "isolated_packet_minimum_target_band_fraction": 0.99897776282807138,
+  "all_isolated_packet_direction_peaks_correct": true,
+  "neighbor_overlap_seconds": 2.2,
+  "fade_in_seconds": 1.5,
+  "fade_out_seconds": 1.5,
+  "fixed_observer": true,
+  "inherited_global_gain": 0.015122717600106002,
+  "human_localization": "PENDING"
+}
