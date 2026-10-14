@@ -1,0 +1,34 @@
+{
+  "schema": "sonawg_synthetic_validation_v1",
+  "checks": {
+    "scale_1": {
+      "lambda_km": 60.23529411764706,
+      "power_fraction": 1
+    },
+    "scale_2": {
+      "lambda_km": 120.47058823529412,
+      "power_fraction": 1
+    },
+    "scale_3": {
+      "lambda_km": 227.55555555555554,
+      "power_fraction": 1
+    },
+    "squared_partition_max_error": 2.220446049250313e-16,
+    "amplitude_double_error": 0,
+    "exact_silence": true,
+    "dc_rejected": true,
+    "eight_compass_sectors": true,
+    "stationary_observer_relative_difference": 0.6902556420537062,
+    "stationary_field_exact_equality": true,
+    "apertures_inside_edge_taper": true,
+    "audio_pitch_hz": [
+      565.685424949238,
+      282.842712474619,
+      141.4213562373095
+    ],
+    "audio_sample_count": 2880000.0
+  },
+  "passed": true,
+  "listener_localization": "PENDING HUMAN LISTENING; no perceptual success claimed",
+  "mapping_selection": "PENDING HUMAN LISTENING"
+}
