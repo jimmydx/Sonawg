@@ -15,6 +15,12 @@
     "field_evolution": "frozen",
     "renderer": "Web Audio; optional browser HRTF stereo",
     "numerical_validation": "transect-validation.json",
-    "human_listening": "pending"
+    "human_listening": "pending",
+    "patterns": 9,
+    "radial_demo": {
+      "url": "?lab=transect&pattern=radial_chirp&method=pulses",
+      "local_wavelength_km": "48+0.24*r",
+      "motion_preview": "Silent; 1200 simulated seconds in eight seconds"
+    }
   }
 }

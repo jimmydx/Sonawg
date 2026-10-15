@@ -4,12 +4,16 @@
 const TAU=2*Math.PI, clamp=(x,a,b)=>Math.min(b,Math.max(a,x));
 const config=Object.freeze({dxKm:4,n:512,pathKm:960,interiorKm:880,referenceHz:300,
   semitonesPerUnit:6,pitchGain:0.10,pulseGain:0.12,audificationGain:0.14,
-  crestThreshold:0.0001,pulseSeconds:0.06,burstInterval:0.25,burstOffset:0.1});
+  crestThreshold:0.0001,pulseSeconds:0.06,burstInterval:0.25,burstOffset:0.1,
+  radial:Object.freeze({innerWavelengthKm:48,wavelengthGrowth:0.24,periodSeconds:1200,sourceTaperKm:24,outerTaperStartKm:1000,outerTaperEndKm:1200})});
+function radialWavelength(r){return config.radial.innerWavelengthKm+config.radial.wavelengthGrowth*r;}
+function radialCrestRadius(order,t){const c=config.radial;return c.innerWavelengthKm/c.wavelengthGrowth*Math.expm1(c.wavelengthGrowth*(order+t/c.periodSeconds));}
 function ramp(t,a,b){return (1-Math.cos(Math.PI*clamp((t-a)/(b-a),0,1)))/2;}
 function pulse(t,on,plateau,off){return (on===0?1:ramp(t,on,on+300))*(1-ramp(t,plateau,off));}
 function packets(id,t,events=[]){
   const q=t/7200, p=(a,l,period,angle,x,y,sigma)=>({a,l,phase:TAU*t/period,angle,x,y,sigma});
   switch(id){
+    case 'radial_chirp':return [{type:'radial',time:t}];
     case 'isolated_60':return [p(1,60,600,0,330,0,100)];
     case 'isolated_120':return [p(1,120,1200,Math.PI/2,0,330,145)];
     case 'isolated_240':return [p(1,240,2400,0,-350,0,220)];
@@ -23,12 +27,25 @@ function packets(id,t,events=[]){
 }
 function fieldValue(ps,x,y){
   let z=0;
-  for(const p of ps){const e=x-p.x,n=y-p.y;z+=p.a*Math.exp(-(e*e+n*n)/(2*p.sigma*p.sigma))*Math.cos(TAU/p.l*(e*Math.cos(p.angle)+n*Math.sin(p.angle))-p.phase);}
+  for(const p of ps){
+    if(p.type==='radial'){
+      const c=config.radial,r=Math.hypot(x,y),phase=TAU/c.wavelengthGrowth*Math.log1p(c.wavelengthGrowth*r/c.innerWavelengthKm)-TAU*p.time/c.periodSeconds;
+      const envelope=Math.sin(Math.PI/2*clamp(r/c.sourceTaperKm,0,1))**2*Math.cos(Math.PI/2*clamp((r-c.outerTaperStartKm)/(c.outerTaperEndKm-c.outerTaperStartKm),0,1))**2;
+      z+=envelope*Math.cos(phase);continue;
+    }
+    const e=x-p.x,n=y-p.y;z+=p.a*Math.exp(-(e*e+n*n)/(2*p.sigma*p.sigma))*Math.cos(TAU/p.l*(e*Math.cos(p.angle)+n*Math.sin(p.angle))-p.phase);
+  }
   const edge=Math.max(Math.abs(x),Math.abs(y));
   return z*(edge>880?Math.cos(Math.PI/2*clamp((edge-880)/144,0,1))**2:1);
 }
-function field(id,t,events=[]){
-  const ps=packets(id,t,events),values=new Float64Array(512*512);
+let radialBasis=null;
+function field(id,t,events=[],output=null){
+  const values=output||new Float64Array(512*512);
+  if(id==='radial_chirp'){
+    if(!radialBasis){const pa=packets(id,0),pb=packets(id,config.radial.periodSeconds/4);radialBasis=[new Float64Array(512*512),new Float64Array(512*512)];for(let j=0;j<512;j++)for(let i=0;i<512;i++){const x=-1024+4*i,y=-1024+4*j,k=j*512+i;radialBasis[0][k]=fieldValue(pa,x,y);radialBasis[1][k]=fieldValue(pb,x,y);}}
+    const a=Math.cos(TAU*t/config.radial.periodSeconds),b=Math.sin(TAU*t/config.radial.periodSeconds);for(let k=0;k<values.length;k++)values[k]=radialBasis[0][k]*a+radialBasis[1][k]*b;return values;
+  }
+  const ps=packets(id,t,events);
   for(let j=0;j<512;j++)for(let i=0;i<512;i++)values[j*512+i]=fieldValue(ps,-1024+4*i,-1024+4*j);
   return values;
 }
@@ -85,6 +102,6 @@ function render(p,s,fs=48000){
   if(peak>.98)throw Error('Fixed gain would clip this profile; playback stopped');
   return {data,seconds,events,peak,fs};
 }
-const api={config,packets,fieldValue,field,sampleGrid,geometry,profile,at,extrema,pitchHz,readPosition,render};
+const api={config,packets,fieldValue,field,sampleGrid,geometry,profile,at,extrema,pitchHz,readPosition,render,radialWavelength,radialCrestRadius};
 if(typeof module!=='undefined')module.exports=api;else root.SonawgTransect=api;
 })(typeof window!=='undefined'?window:globalThis);

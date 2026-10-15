@@ -2,12 +2,12 @@
   "schema": "sonawg_transect_validation_v1",
   "passed": true,
   "matlab_version": "25.2.0.3150157 (R2025b) Update 4",
-  "reference_cases": 56,
-  "numerical_values_compared": 44072,
-  "maximum_field_error": 4.1494585545365226e-15,
+  "reference_cases": 63,
+  "numerical_values_compared": 49581,
+  "maximum_field_error": 8.722189637211386e-15,
   "maximum_profile_error": 1.9095836023552692e-14,
   "tests": [
-    "MATLAB field and bilinear profile parity for all eight patterns",
+    "MATLAB field and bilinear profile parity for all nine patterns",
     "Known wavelengths and oblique projection",
     "Parallel scan has no crest crossings",
     "Pitch sign and logarithmic amplitude excursion",
@@ -18,7 +18,12 @@
     "Mixed scales",
     "All methods at fourfold field amplitude",
     "Interior geometry bounds",
-    "Audio duration and endpoint silence"
+    "Audio duration and endpoint silence",
+    "Radial circular symmetry",
+    "Increasing radial crest spacing",
+    "Outward crest motion",
+    "Radial phase-period repeat",
+    "Radial audio in all three methods"
   ],
   "scales": [
     {
@@ -46,6 +51,30 @@
       "positive_crests": 3
     }
   ],
+  "radial": {
+    "phase_law": "2*pi/0.24*log(1+0.24*r/48)-2*pi*t/1200",
+    "local_wavelength_km": "48+0.24*r",
+    "path_start_radius_km": 5.684341886080802e-14,
+    "path_end_radius_km": 960.0000000000001,
+    "positive_crest_radii_km": [
+      123.27800066730805,
+      210.83243025084192,
+      322.47594910129874,
+      464.0502515365967,
+      644.0222111387832,
+      873.1736791566515
+    ],
+    "crest_gaps_km": [
+      87.55442958353387,
+      111.64351885045681,
+      141.57430243529794,
+      179.9719596021865,
+      229.1514680178683
+    ],
+    "outward_motion": true,
+    "period_s": 1200,
+    "interpretation": "Prescribed synthetic phase pattern; not a dispersion simulation"
+  },
   "audio_peaks": [
     {
       "lambda": 60,

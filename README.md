@@ -49,7 +49,7 @@ overlapping packets can legitimately produce multiple audible answers.
 
 ## Interactive transect lab
 
-Open https://jimmydx.github.io/Sonawg/?lab=transect. Choose one of the eight
+Open https://jimmydx.github.io/Sonawg/?lab=transect. Choose one of the nine
 frozen patterns and a simulated minute. Drag or enter the center of a 960 km
 transect, rotate its bearing, and compare signed-value pitch, crest-crossing
 pulses, and rapid spatial audification. Reset transect places the line through
@@ -77,3 +77,20 @@ setup-link button records the frozen field, time, geometry, method and controls.
 Files use classic local scripts without a server requirement for the offline
 lab. On iPhone, use the online page in Safari; Files/Quick Look may not execute
 local HTML scripts. Numerical validation is in `transect-validation.json`.
+
+### Circular wave with increasing crest spacing
+
+Open https://jimmydx.github.io/Sonawg/?lab=transect&pattern=radial_chirp&method=pulses.
+The listener is at the center of circular waves with prescribed phase
+`2*pi/0.24*log(1+0.24*r/48) - 2*pi*t/1200`, with radius in km and time in seconds.
+Local wavelength grows as `48 + 0.24*r` km; it is about 278 km at 960 km radius.
+The default 960 km NE transect starts at the observer and goes outward.
+Increasing gaps between plucks expose the increasing crest separation.
+The inner 24 km is smoothly softened; 48 km is the phase-law limit at the center.
+
+“Preview outward motion (silent)” shows a 20-minute phase cycle in eight seconds.
+Audio stops during this preview. Stopping or finishing restores the chosen
+frozen snapshot; Play / replay then scans that snapshot using any of the three
+methods. Larger rings have greater spacing, and individual phase crests move
+outward as time increases. This is an analytical radial chirp, not a physical
+dispersion calculation; it does not establish a gravity-wave mode or mechanism.
