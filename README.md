@@ -4,7 +4,7 @@ Sonification + atmospheric gravity waves: a synthetic listening study of
 horizontal wavelength scales and activity around a tracked source.
 
 Listen at https://jimmydx.github.io/Sonawg/ using stereo headphones.
-The page provides seven analytical calibration patterns, each with three-band
+The reference player provides seven analytical calibration patterns, each with three-band
 and 24-band pitch mappings and source-following/fixed observer controls.
 Each comparison is 60 seconds, representing two simulated hours on a 4 km grid.
 The synchronized animation is 1600 × 900 at 2 fps.
@@ -46,3 +46,34 @@ and the existing fixed gain. Reveal the animation and answer key after listening
 The worksheet provides cue-center times without revealing directions or scales.
 Numerical tests validate isolated packet sectors and wavelength brackets;
 overlapping packets can legitimately produce multiple audible answers.
+
+## Interactive transect lab
+
+Open https://jimmydx.github.io/Sonawg/?lab=transect. Choose one of the eight
+frozen patterns and a simulated minute. Drag or enter the center of a 960 km
+transect, rotate its bearing, and compare signed-value pitch, crest-crossing
+pulses, and rapid spatial audification. Reset transect places the line through
+the selected isolated packet; the default is the stationary 120 km packet.
+
+The lab samples the original 4 km grid with bilinear interpolation. The field
+stays frozen throughout replay. Signed pitch is 300 * 2^(value/2) Hz; zero
+is the reference tone, not silence. Pulses mark positive local maxima, with
+optional low plucks for negative troughs. Audification reads the whole profile
+rapidly four times per second for eight seconds; its speed is separate from
+the slow scanning clock. Shorter projected wavelengths produce higher reading
+frequencies, which are not the field's physical frequencies. Windows suppress
+burst boundary discontinuities. The default 32,000 km/s gives about 533, 267,
+and 133 Hz for aligned 60, 120, and 240 km structures.
+
+Begin with centered audio; optionally enable scanner-position HRTF rendering.
+This is browser-generated stereo, separate from the Logic binaural reference
+clips. No browser Atmos decoding is assumed. Turn off additional Spatialize
+Stereo and head tracking. Generic HRTFs vary by browser; human localization
+and interpretability still require listening. Fixed gains differ by method,
+so perceived loudness cannot be compared as a field measurement across methods.
+
+Download the profile CSV and mapping settings JSON to record a setup. The
+setup-link button records the frozen field, time, geometry, method and controls.
+Files use classic local scripts without a server requirement for the offline
+lab. On iPhone, use the online page in Safari; Files/Quick Look may not execute
+local HTML scripts. Numerical validation is in `transect-validation.json`.

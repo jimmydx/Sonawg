@@ -4,5 +4,17 @@
   "exercise_events": 24,
   "atmos_profile": "Dolby Digital Plus + Dolby Atmos",
   "browser_audio": "Binaural; Atmos downloads use native players",
-  "validation": "Numerical mapping and media passed; human listening pending"
+  "validation": "Numerical mapping and media passed; human listening pending",
+  "transect_lab": {
+    "url": "?lab=transect",
+    "methods": [
+      "pitch",
+      "pulses",
+      "audification"
+    ],
+    "field_evolution": "frozen",
+    "renderer": "Web Audio; optional browser HRTF stereo",
+    "numerical_validation": "transect-validation.json",
+    "human_listening": "pending"
+  }
 }

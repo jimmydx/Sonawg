@@ -1,0 +1,98 @@
+{
+  "schema": "sonawg_transect_validation_v1",
+  "passed": true,
+  "matlab_version": "25.2.0.3150157 (R2025b) Update 4",
+  "reference_cases": 56,
+  "numerical_values_compared": 44072,
+  "maximum_field_error": 4.1494585545365226e-15,
+  "maximum_profile_error": 1.9095836023552692e-14,
+  "tests": [
+    "MATLAB field and bilinear profile parity for all eight patterns",
+    "Known wavelengths and oblique projection",
+    "Parallel scan has no crest crossings",
+    "Pitch sign and logarithmic amplitude excursion",
+    "Pulse event times",
+    "Fixed amplitude ratios in pulses and audification",
+    "Zero field semantics",
+    "Reversal",
+    "Mixed scales",
+    "All methods at fourfold field amplitude",
+    "Interior geometry bounds",
+    "Audio duration and endpoint silence"
+  ],
+  "scales": [
+    {
+      "wavelength_km": 60,
+      "crest_spacing_km": 60.000000000000014,
+      "oblique_spacing_km": 84.8282734013628,
+      "audification_expected_hz": 533.3333333333334,
+      "audification_measured_hz": 533.75,
+      "positive_crests": 15
+    },
+    {
+      "wavelength_km": 120,
+      "crest_spacing_km": 119.99999999999997,
+      "oblique_spacing_km": 169.82741101567794,
+      "audification_expected_hz": 266.6666666666667,
+      "audification_measured_hz": 266.5,
+      "positive_crests": 7
+    },
+    {
+      "wavelength_km": 240,
+      "crest_spacing_km": 240,
+      "oblique_spacing_km": 339.6548220313559,
+      "audification_expected_hz": 133.33333333333334,
+      "audification_measured_hz": 134,
+      "positive_crests": 3
+    }
+  ],
+  "audio_peaks": [
+    {
+      "lambda": 60,
+      "method": "pitch",
+      "peak": 0.10000000149011612
+    },
+    {
+      "lambda": 60,
+      "method": "pulses",
+      "peak": 0.09743236005306244
+    },
+    {
+      "lambda": 60,
+      "method": "audification",
+      "peak": 0.13987383246421814
+    },
+    {
+      "lambda": 120,
+      "method": "pitch",
+      "peak": 0.10000000149011612
+    },
+    {
+      "lambda": 120,
+      "method": "pulses",
+      "peak": 0.09743236005306244
+    },
+    {
+      "lambda": 120,
+      "method": "audification",
+      "peak": 0.1399681121110916
+    },
+    {
+      "lambda": 240,
+      "method": "pitch",
+      "peak": 0.10000000149011612
+    },
+    {
+      "lambda": 240,
+      "method": "pulses",
+      "peak": 0.09743236005306244
+    },
+    {
+      "lambda": 240,
+      "method": "audification",
+      "peak": 0.13998401165008545
+    }
+  ],
+  "human_interpretability": "PENDING",
+  "human_localization": "PENDING"
+}
